@@ -11,7 +11,7 @@ var connectionString=builder.Configuration.GetConnectionString("DefaulConnection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseNpgsql(connectionString));
 
-builder.Services.AddDefaultIdentity<ApplicationDbContext>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
 
 
