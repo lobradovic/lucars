@@ -14,7 +14,7 @@ namespace lucars.Data
         public DbSet<Automobil> Automobils { get; set; }
         public DbSet<Zakup> Zakups { get; set; }
 
-        public override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
