@@ -9,7 +9,7 @@ public class Automobil
     public int automobilID { get; set; }
     public int godinaProizvodnje { get; set; }
     public DateTime registrovanDo { get; set; }
-    public double cena { get; set; }
+    public decimal cena { get; set; }
     public int idModel { get; set; }
     public Model Model { get; set; }
 

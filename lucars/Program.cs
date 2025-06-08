@@ -2,6 +2,7 @@ using lucars.Controllers;
 using lucars.Models;
 using lucars.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 
@@ -11,7 +12,7 @@ var connectionString=builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseNpgsql(connectionString));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
 options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
 
 
@@ -42,5 +43,17 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+using (var scope = app.Services.CreateScope())
+{
+    await DbSeeder.SeedRolesAsync(scope.ServiceProvider);
 
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+
+    await DbSeeder.SeedMarkasAsync(context);
+    await DbSeeder.SeedKlasasAsync(context);
+    await DbSeeder.SeedModelsAsync(context);
+    await DbSeeder.SeedAutomobilsAsync(context);
+    
+}
 app.Run();
