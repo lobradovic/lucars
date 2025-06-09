@@ -1,8 +1,25 @@
 ﻿@{
     ViewData["Title"] = "LUCARS - Homepage";
 }
-
+@model List<Automobil>
 <div>
     <h1>Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    <div class="automobili">
+        @foreach(var automobil in Model)
+        {
+            
+            <div class="automobil">
+            <a href="">
+            <h2>@automobil.Model.Markas.nazivMarke @automobil.Model.nazivModela</h2>
+            <p>@automobil.godinaProizvodnje</p>
+            <p>@automobil.Klasa.nazivKlase</p>
+            <p>@automobil.cena EUR</p>
+            </a>
+            </div>
+            
+        }
+    </div>
 </div>
