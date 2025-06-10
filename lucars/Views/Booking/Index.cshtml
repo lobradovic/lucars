@@ -1,13 +1,48 @@
 @{
     ViewData["Title"] = "LUCARS - Booking";
 }
-@model Automobil
+@model ZakupViewModel
+<a asp-controller="Home" asp-action="Index"> Nazad</a>
+<h1>Detalji o automobilu: </h1>
+<div class="content-flex">
+@if (Model.automobil != null && Model.automobil.Model != null && Model.automobil.Model.Markas != null && Model.automobil.Klasa!=null)
+{
+    <div class="carInfo">
+        <h3>@Model.automobil.Model.Markas.nazivMarke @Model.automobil.Model.nazivModela</h3>
+        <p>@Model.automobil.godinaProizvodnje</p>
+        <p>@Model.automobil.Klasa.nazivKlase</p>
+        <p>@Model.automobil.cena EUR</p>
+    </div>
+}
+    <div class="bookInfo">
+        <form asp-controller="Booking" asp-action="Index" method="POST">
+            @if (ViewBag.Message != null)
+            {
+                <div class="text-danger">@ViewBag.Message</div>
+            }
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<h3>@Model.Model.Markas.nazivMarke @Model.Model.nazivModela</h3>
-<p>@Model.godinaProizvodnje</p>
-<p>@Model.Klasa.nazivKlase</p>
-<p>@Model.cena EUR</p>
-<label for="">Rezervacija od:</label>
-<input type="date">
-<label for="">Rezervacija do:</label>
-<input type="date">
+            <div class="form">
+                <input type="hidden" asp-for="automobilID">
+                <label for="">Rezervacija od:</label>
+                <input type="date" asp-for="zakupljenOd">
+                <label for="">Rezervacija do:</label>
+                <input type="date"asp-for="zakupljenDo">
+                <button type="Submit">Potvrdi rezervaciju</button>
+            </div>
+        </form>
+    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div style="color:red;">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+

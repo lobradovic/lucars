@@ -14,6 +14,7 @@
 </head>
 <body>
 <div asp-asp-validation-summary="All"></div>
+<div class="login">
     <div class="loginDiv loginTweak">
         <div class="logo">
             <img src="~/images/lucarsWhite.png" alt="Logo">
@@ -44,8 +45,10 @@
         </form>
         <div class="formField formNote">
             <p>Nemate nalog? <a asp-controller="Operations" asp-action="Create">Registrujte se</a></p>
+            <a asp-controller="Home" asp-action="Index">Nazad na početnu</a>
         </div>
 
+    </div>
     </div>
     </body>
     </html>
