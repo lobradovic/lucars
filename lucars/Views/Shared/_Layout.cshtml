@@ -15,10 +15,24 @@
             <div class="headerLogo"><img src="~/images/lucarsWhite.png" alt=""></div>
             <div class="headerNav">
                 <nav>
-                    <a href="">Home</a>
-                    <a href="">Booking</a>
-                    <a href="">Admin</a>
-                    <a asp-controller="Account" asp-action="Logout">Logout</a>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <a href="">Admin</a>
+                    }
+
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Booking" asp-action="Booking">Booking</a>
+                        <a asp-controller="Account" asp-action="Logout">Logout</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login">Login</a>
+                        <a asp-controller="Operations" asp-action="Create">Sign up</a>
+
+                    }
+
                 </nav>
             </div>
         </div>
