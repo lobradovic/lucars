@@ -43,6 +43,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+
 using (var scope = app.Services.CreateScope())
 {
     await DbSeeder.SeedRolesAsync(scope.ServiceProvider);
@@ -54,6 +55,6 @@ using (var scope = app.Services.CreateScope())
     await DbSeeder.SeedKlasasAsync(context);
     await DbSeeder.SeedModelsAsync(context);
     await DbSeeder.SeedAutomobilsAsync(context);
-    
+
 }
 app.Run();

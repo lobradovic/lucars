@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "LUCARS - Booking";
+}
+@model Automobil
+
+<h3>@Model.Model.Markas.nazivMarke @Model.Model.nazivModela</h3>
+<p>@Model.godinaProizvodnje</p>
+<p>@Model.Klasa.nazivKlase</p>
+<p>@Model.cena EUR</p>
+<label for="">Rezervacija od:</label>
+<input type="date">
+<label for="">Rezervacija do:</label>
+<input type="date">
