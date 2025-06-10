@@ -4,9 +4,11 @@
 @model List<Zakup>
 
 <h1>Moje rezervacije</h1>
+<div class="content">
+
 @if(Model.Any())
 {
-    <table>
+    <table class="bookings">
     <thead>
         <th>Automobil</th>
         <th>Zakupljen od</th>
@@ -18,8 +20,18 @@
     {
         <tr>
             <td>@z.Automobil.Model.Markas.nazivMarke @z.Automobil.Model.nazivModela</td>
-            <td>@z.zakupljenOd</td>
-            <td>@z.zakupljenDo</td>
+            <td>@z.zakupljenOd.ToShortDateString()</td>
+            <td>@z.zakupljenDo.ToShortDateString()</td>
+            <td>                
+                <div class="formField submitBtn">
+                    <a href="">Update</a>
+                </div>     
+            </td>
+            <td>                
+                <div class="formField submitBtn">
+                    <a href="">Delete</a>
+                </div>     
+            </td>
         </tr>
     }
     </tbody>
@@ -29,3 +41,5 @@ else
 {
     <h3>Trenutno nemate nijednu rezervaciju.</h3>
 }
+    
+</div>
