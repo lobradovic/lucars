@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"]="Insert marke";
+}
+@model Marka
+<h1>Unos marke</h1>
+
+<div class="insertDiv d-flex">
+<div class="form">
+<form asp-controller="Marka" asp-action="InsertMarka" method="POST">
+    @Html.AntiForgeryToken()
+    <label for="">Naziv marke</label>
+    <input type="text" class="formField" asp-for="nazivMarke">
+    <button class="submitBtn">Potvrdi</button>
+</form>
+</div>

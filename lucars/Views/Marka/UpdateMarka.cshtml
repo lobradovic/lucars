@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"]="Update marke";
+}
+@model Marka
+<h1>Unos marke</h1>
+
+<div class="insertDiv d-flex">
+<div class="form">
+<form asp-controller="Marka" asp-action="UpdateMarka" method="POST">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="markaID">
+    <label for="">Naziv marke</label>
+    <input type="text" class="formField" asp-for="nazivMarke">
+    <button class="submitBtn">Potvrdi</button>
+</form>
+</div>

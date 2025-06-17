@@ -18,7 +18,7 @@
                     <a asp-controller="Home" asp-action="Index">Home</a>
                     @if(User.IsInRole("Admin"))
                     {
-                        <a href="">Admin</a>
+                        <a asp-controller="Admin" asp-action="Index">Admin</a>
                     }
 
                     @if(User.Identity.IsAuthenticated)

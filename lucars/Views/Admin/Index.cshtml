@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Admin panel";
+}
+
+<h1>Admin stranica</h1>
+
+<div class="d-flex adminDiv">
+    <div class="dashboard">
+        <a asp-controller="Marka" asp-action="Index" class="abtn">Marke</a>
+        <a href="" class="abtn">Modeli</a>
+        <a href="" class="abtn">Automobili</a>
+        <a href="" class="abtn"> Svi zakupi</a>
+        <a href="" class="abtn">Svi korisnici</a>
+    </div>
+    <div class="adminInfo">
+        <h2>Dobrodošli u administratorski panel</h2>
+        <p>
+            Na levoj strani nalazi se <strong>navigacioni meni</strong> koji vam omogućava brz pristup
+            različitim sekcijama sistema. Klikom na neku od ponuđenih stavki otvoriće se
+            stranica na kojoj možete vršiti <strong>CRUD operacije</strong> (kreiranje, čitanje, ažuriranje i brisanje podataka).
+        </p>
+
+        <ul>
+            <li><strong>Marke</strong> – upravljanje markama automobila (dodavanje, izmena, brisanje).</li>
+            <li><strong>Modeli</strong> – pregled i izmena modela automobila koji pripadaju određenim markama.</li>
+            <li><strong>Automobili</strong> – evidencija svih vozila u sistemu.</li>
+            <li><strong>Svi zakupi</strong> – pregled zakupa vozila, sa mogućnošću izmene ili brisanja.</li>
+            <li><strong>Svi korisnici</strong> – pregled i administracija korisnika sistema.</li>
+        </ul>
+
+        <p>
+            Odaberite željenu stavku iz menija kako biste započeli rad.
+        </p>
+    </div>
+</div>
