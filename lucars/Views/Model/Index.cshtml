@@ -1,0 +1,30 @@
+@{ViewData["Title"]="Svi modeli";}
+@model List<Model>
+
+<h1>Svi modeli</h1>
+<a asp-controller="Model" asp-action="InsertModel">Unos novog modela</a>
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Marka</th>
+        <th>Model</th>
+        <th colspan="2">Opcije</th>
+<tbody>
+        @foreach(var m in Model)
+        {
+            <tr>
+                <td>@m.modelID</td>
+                <td>@m.Markas.nazivMarke</td>
+                <td>@m.nazivModela</td>
+                <td><a asp-controller="Model" asp-action="UpdateModel" asp-route-id="@m.modelID" class="abtn">Update</a></td>
+                <td>
+                    <form asp-action="DeleteModel" asp-controller="Model" method="POST" asp-route-id="@m.modelID">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="@m.modelID" />
+                        <button class="abtn" type="submit">Obriši</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

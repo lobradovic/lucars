@@ -1,0 +1,21 @@
+@{ViewData["Title"]="Insert modela";}
+@model ModelViewModel
+
+<h1>Novi model</h1>
+<div class="form">
+    <form asp-controller="Model" asp-action="InsertModel" method="POST">
+        @Html.AntiForgeryToken
+        <div class="formField">
+            <label for="">Marka</label>
+        <select asp-for="@Model.idMarka" asp-items="@(new SelectList(Model.Marke, "markaID", "nazivMarke"))"></select>
+            </select>
+        </div>
+        <div class="formField">
+            <label for="">Model</label>
+            <input type="text" asp-for="@Model.nazivModela">
+        </div>
+        <div class="formField submitBtn">
+            <button type="submit">Potvrdi</button>
+        </div>
+    </form>
+</div>
