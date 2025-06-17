@@ -1,14 +1,11 @@
 ﻿@{
     ViewData["Title"] = "LUCARS - Homepage";
 }
-@model List<Automobil>
+@model AutoPageModel
 <div>
-    <h1>Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
 
     <div class="automobili">
-        @foreach(var automobil in Model)
+        @foreach(var automobil in Model.automobili)
         {
             
             <div class="automobil">
@@ -22,4 +19,13 @@
             
         }
     </div>
+    <div class="pagination"></div>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a asp-action="Index" asp-route-page="@i" asp-route-searchQuery="@Model.searchQuery"
+           class="@(i == Model.CurrentPage ? "active" : "")">
+            @i
+        </a>
+    }
+</div>
 </div>

@@ -18,15 +18,41 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string searchQuery = "", int page = 1, int pageSize = 6)
     {
-        var automobili = context.Automobils
+        // var automobili = context.Automobils
+        //     .Include(a => a.Model)
+        //         .ThenInclude(m => m.Markas)  // ili kako se zove kolekcija/entitet Marka u modelu
+        // .Include(a => a.Klasa)
+        // .ToList();
+        var query = context.Automobils
             .Include(a => a.Model)
-                .ThenInclude(m => m.Markas)  // ili kako se zove kolekcija/entitet Marka u modelu
-        .Include(a => a.Klasa)
-        .ToList();
+                .ThenInclude(m => m.Markas)
+            .Include(a => a.Klasa)
+            .AsQueryable();
 
-        return View(automobili);
+        if (!string.IsNullOrEmpty(searchQuery))
+        {
+            query = query.Where(z => z.Model.nazivModela.Contains(searchQuery));
+        }
+
+        int totalCount = query.Count();
+        var a = query
+            .OrderBy(z => z.Model.Markas.nazivMarke)
+            .ThenBy(z => z.Model.nazivModela)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var kola = new AutoPageModel
+        {
+            automobili=a,
+            CurrentPage = page,
+            TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
+            searchQuery = searchQuery
+        };
+        return View(kola);
+        
     }
 
     public IActionResult Privacy()

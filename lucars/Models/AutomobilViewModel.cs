@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-namespace lucars.Models;
+using Microsoft.EntityFrameworkCore;
 
-public class ZakupViewModel
+namespace lucars.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+public class AutomobilViewModel
 {
     public int automobilID { get; set; }
 
