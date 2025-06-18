@@ -6,6 +6,8 @@ namespace lucars.Models;
 public class ModelViewModel
 {
     [ValidateNever]
+    public int modelID { get; set; }
+    [ValidateNever]
     public int idMarka { get; set; }
     [ValidateNever]
     public string nazivModela { get; set; }

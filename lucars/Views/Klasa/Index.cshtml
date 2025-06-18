@@ -3,7 +3,7 @@
 
 
 <h1>Sve klase</h1>
-
+<a asp-controller="Klasa" asp-action="InsertKlasa" class="abtn">Unos nove klase</a>
 <table>
     <thead>
         <th>ID</th>
@@ -16,8 +16,13 @@
             <tr>
                 <td>@k.klasaID</td>
                 <td>@k.nazivKlase</td>
-                <td><a href="">Update</a></td>
-                <td><a href="">Delete</a></td>
+                <td><a asp-controller="Klasa" asp-action="UpdateKlasa" asp-route-id="@k.klasaID">Update</a></td>
+                <td>
+                    <form asp-controller="Klasa" asp-action="DeleteKlasa" method="POST" asp-route-id="@k.klasaID">
+                        <input type="hidden" asp-for="@k.klasaID">
+                        <button class="abtn"> Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

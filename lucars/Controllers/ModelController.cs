@@ -31,16 +31,15 @@ public class ModelController : Controller
         var model = context.Models.Include(m => m.Markas)
                  .FirstOrDefault(m => m.modelID == id);
 
-        // if (modeli == null)
-        //     return NotFound();
-        var modeli = new ModelViewModel
+        var viewModel = new ModelViewModel
         {
-            Model = model,
+            modelID = model.modelID,
+            nazivModela = model.nazivModela,
+            idMarka = model.idMarka,
             Marke = context.Markas.ToList()
         };
-        return View(modeli);
 
-        //return View(modeli);
+        return View(viewModel);
     }
 
     [HttpPost]
@@ -49,16 +48,17 @@ public class ModelController : Controller
     {
         if (!ModelState.IsValid)
         {
+            model.Marke = context.Markas.ToList();
             return View(model);
         }
-        var m = context.Models.FirstOrDefault(m => m.modelID == model.Model.modelID);
+        var m = context.Models.FirstOrDefault(m => m.modelID == model.modelID);
         if (m == null)
         {
             return NotFound();
         }
 
-        m.idMarka=model.idMarka;
-        m.nazivModela = model.Model.nazivModela;
+        m.idMarka = model.idMarka;
+        m.nazivModela = model.nazivModela;
 
         await context.SaveChangesAsync();
 
@@ -93,6 +93,21 @@ public class ModelController : Controller
         await context.SaveChangesAsync();
 
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteModel(int id)
+    {
+        var m = await context.Models.FindAsync(id);
+        if (m == null)
+        {
+            return NotFound();
+        }
+        context.Models.Remove(m);
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Index", "Model");
     }
 
 }

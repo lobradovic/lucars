@@ -33,7 +33,9 @@ public class HomeController : Controller
 
         if (!string.IsNullOrEmpty(searchQuery))
         {
-            query = query.Where(z => z.Model.nazivModela.Contains(searchQuery));
+            query = query.Where(z => z.Model.nazivModela.Contains(searchQuery) ||
+            z.Model.Markas.nazivMarke.Contains(searchQuery)
+            || z.Klasa.nazivKlase.Contains(searchQuery));
         }
 
         int totalCount = query.Count();

@@ -1,0 +1,14 @@
+@{ViewData["Title"]="Update klase";}
+@model Klasa
+
+<h1>Unos nove klase</h1>
+<div class="form">
+    <form asp-action="UpdateKlasa" asp-controller="Klasa" asp-item-id="@Model.klasaID" method="POST">
+        <div class="formField">
+            <label for="">Naziv klase:</label>
+            <input type="hidden" asp-for="@Model.klasaID">
+            <input type="text" asp-for="@Model.nazivKlase">
+            <button type="submit">Potvrdi</button>
+        </div>
+    </form>
+</div>

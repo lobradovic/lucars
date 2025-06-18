@@ -7,13 +7,13 @@
         @Html.AntiForgeryToken()
         <div class="formField">
             <label for="">Marka</label>
-        <select asp-for="Model.idMarka" asp-items="@(new SelectList(Model.Marke, "markaID", "nazivMarke"))"></select>
+        <select asp-for="@Model.idMarka" asp-items="@(new SelectList(Model.Marke, "markaID", "nazivMarke"))"></select>
             </select>
         </div>
         <div class="formField">
             <label for="">Model</label>
-            <input type="hidden" asp-for="@Model.Model.modelID">
-            <input type="text" asp-for="@Model.Model.nazivModela">
+            <input type="hidden" asp-for="@Model.modelID">
+            <input type="text" asp-for="@Model.nazivModela">
         </div>
         <div class="formField submitBtn">
             <button>Potvrdi</button>

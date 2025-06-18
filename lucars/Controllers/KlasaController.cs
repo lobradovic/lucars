@@ -21,8 +21,79 @@ public class KlasaController : Controller
 
     public IActionResult Index()
     {
-        var klase=context.Klasas.ToList();
+        var klase = context.Klasas.ToList();
         return View(klase);
+    }
+
+    public IActionResult InsertKlasa()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> InsertKlasa(Klasa k)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(k);
+        }
+
+        var klasa = new Klasa();
+        klasa.nazivKlase = k.nazivKlase;
+
+        await context.Klasas.AddAsync(klasa);
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Index", "Klasa");
+    }
+
+    public IActionResult UpdateKlasa(int id)
+    {
+        var klasa = context.Klasas.Where(k => k.klasaID == id).FirstOrDefault();
+        if (klasa == null)
+        {
+            return NotFound();
+        }
+
+        return View(klasa);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateKlasa(Klasa klasa)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(klasa);
+        }
+        var k = context.Klasas.FirstOrDefault(k => k.klasaID == klasa.klasaID);
+        if (k == null)
+        {
+            return NotFound();
+        }
+
+
+        k.nazivKlase = klasa.nazivKlase;
+
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Index", "Klasa");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteKlasa(int id)
+    {
+        var klasa = context.Klasas.Find(id);
+        if (!ModelState.IsValid)
+        {
+            return RedirectToAction("Index", "Klasa");
+        }
+
+        context.Klasas.Remove(klasa);
+        await context.SaveChangesAsync();
+        return RedirectToAction("Index", "Klasa");
     }
 
 
