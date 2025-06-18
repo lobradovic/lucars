@@ -337,3 +337,10 @@ thead th
 {
   margin:0 auto;
 }
+
+.formField select
+{
+  background-color:#1c1c1c;
+  border:none;
+  border-bottom:1px solid #e4e4e4;
+}

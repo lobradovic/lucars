@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-
-namespace lucars.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+namespace lucars.Models;
+
 public class AutomobilViewModel
 {
     public int automobilID { get; set; }
