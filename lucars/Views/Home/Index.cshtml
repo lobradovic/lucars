@@ -14,6 +14,8 @@
                     <option value="@category" selected="@(category == Model.SelectedCategory ? "selected" : null)">@category</option>
                 }
             </select> *@
+            <select name="sort" asp-items="@ViewBag.Sort">
+            </select>
 
             <button type="submit">Filtriraj</button>
         </form>

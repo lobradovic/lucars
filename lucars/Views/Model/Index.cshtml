@@ -3,13 +3,17 @@
 
 <h1>Svi modeli</h1>
 <a asp-controller="Model" asp-action="InsertModel">Unos novog modela</a>
-<table>
+<table id="klijentska">
     <thead>
+        <tr>
         <th>ID</th>
         <th>Marka</th>
         <th>Model</th>
-        <th colspan="2">Opcije</th>
-<tbody>
+        <th>Update</th>
+        <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach(var m in Model)
         {
             <tr>
@@ -28,3 +32,14 @@
         }
     </tbody>
 </table>
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#klijentska').DataTable();
+        });
+    </script>
+}

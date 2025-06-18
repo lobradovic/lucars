@@ -6,11 +6,15 @@
 <h1>Prikaz svih marki</h1>
 
 <a asp-controller="Marka" asp-action="InsertMarka">Unos nove marke</a>
-<table>
+<table id="klijentska">
     <thead>
+        <tr>
         <th>ID</th>
         <th>Naziv</th>
-        <th colspan="2">Opcije</th>
+        <th>Update</th>
+        <th>Delete</th>
+        </tr>
+    </thead>
 <tbody>
         @foreach(var m in Model)
         {
@@ -29,3 +33,14 @@
         }
     </tbody>
 </table>
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#klijentska').DataTable();
+        });
+    </script>
+}

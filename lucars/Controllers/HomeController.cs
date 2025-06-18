@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using lucars.Models;
 using lucars.Data;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace lucars.Controllers;
 
@@ -18,13 +19,16 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index(string searchQuery = "", int page = 1, int pageSize = 6)
+    public IActionResult Index(string searchQuery = "",string sort="", int page = 1, int pageSize = 6)
     {
-        // var automobili = context.Automobils
-        //     .Include(a => a.Model)
-        //         .ThenInclude(m => m.Markas)  // ili kako se zove kolekcija/entitet Marka u modelu
-        // .Include(a => a.Klasa)
-        // .ToList();
+        ViewBag.Sort = new SelectList(new[]
+        {
+            new { Value = "Ime", Text = "Po imenu" },            
+            new { Value = "Najjeftiniji", Text = "Cena uzlazno" },
+            new { Value = "Najskuplji", Text = "Cena silazno" }
+        }, "Value", "Text", sort);
+
+
         var query = context.Automobils
             .Include(a => a.Model)
                 .ThenInclude(m => m.Markas)
@@ -39,9 +43,25 @@ public class HomeController : Controller
         }
 
         int totalCount = query.Count();
+        switch (sort)
+        {
+            case "Ime":
+                query = query.OrderBy(z => z.Model.Markas.nazivMarke)
+                            .ThenBy(z => z.Model.nazivModela);
+                break;            
+            case "Najjeftiniji":
+                query = query.OrderBy(z => z.cena);
+                break;
+            case "Najskuplji":
+                query = query.OrderByDescending(z => z.cena);
+                break;
+            default:
+                query = query.OrderBy(z => z.Model.Markas.nazivMarke)
+                            .ThenBy(z => z.Model.nazivModela);
+                break;
+        }
+
         var a = query
-            .OrderBy(z => z.Model.Markas.nazivMarke)
-            .ThenBy(z => z.Model.nazivModela)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
