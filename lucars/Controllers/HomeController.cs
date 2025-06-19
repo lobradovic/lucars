@@ -13,17 +13,17 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     public readonly ApplicationDbContext context;
 
-    public HomeController(ILogger<HomeController> logger,ApplicationDbContext context)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
-        this.context=context;
+        this.context = context;
         _logger = logger;
     }
 
-    public IActionResult Index(string searchQuery = "",string sort="", int page = 1, int pageSize = 6)
+    public IActionResult Index(string searchQuery = "", string sort = "", int page = 1, int pageSize = 6)
     {
         ViewBag.Sort = new SelectList(new[]
         {
-            new { Value = "Ime", Text = "Po imenu" },            
+            new { Value = "Ime", Text = "Po imenu" },
             new { Value = "Najjeftiniji", Text = "Cena uzlazno" },
             new { Value = "Najskuplji", Text = "Cena silazno" }
         }, "Value", "Text", sort);
@@ -48,7 +48,7 @@ public class HomeController : Controller
             case "Ime":
                 query = query.OrderBy(z => z.Model.Markas.nazivMarke)
                             .ThenBy(z => z.Model.nazivModela);
-                break;            
+                break;
             case "Najjeftiniji":
                 query = query.OrderBy(z => z.cena);
                 break;
@@ -68,13 +68,13 @@ public class HomeController : Controller
 
         var kola = new AutoPageModel
         {
-            automobili=a,
+            automobili = a,
             CurrentPage = page,
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
             searchQuery = searchQuery
         };
         return View(kola);
-        
+
     }
 
     public IActionResult Privacy()
@@ -87,4 +87,6 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
 }

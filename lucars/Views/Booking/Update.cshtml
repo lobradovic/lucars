@@ -1,21 +1,12 @@
 @{
     ViewData["Title"] = "LUCARS - Booking update";
 }
-@model ZakupViewModel
+@model ZakupEditViewModel
 <a asp-controller="Home" asp-action="Index"> Nazad</a>
-<h1>Detalji o automobilu: </h1>
+<h1>Detalji o zakupu: </h1>
 <div class="content-flex">
-@if (Model.automobil != null && Model.automobil.Model != null && Model.automobil.Model.Markas != null && Model.automobil.Klasa!=null)
-{
-    <div class="carInfo">
-        <h3>@Model.automobil.Model.Markas.nazivMarke @Model.automobil.Model.nazivModela</h3>
-        <p>@Model.automobil.godinaProizvodnje</p>
-        <p>@Model.automobil.Klasa.nazivKlase</p>
-        <p>@Model.automobil.cena EUR</p>
-    </div>
-}
     <div class="bookInfo">
-        <form asp-controller="Booking" asp-action="Index" method="POST">
+        <form asp-controller="Booking" asp-action="Update" method="POST">
             @if (ViewBag.Message != null)
             {
                 <div class="text-danger">@ViewBag.Message</div>
@@ -24,21 +15,19 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form">
-                <input type="hidden" asp-for="automobilID">
+                <input type="hidden" asp-for="zakupID" />
 
-                
-                @* <select asp-for="@Model.automobilID"
-                    asp-items="@(new SelectList(@Model.automobil.Model.Markas.SelectMany(m => m.Model, model => new {
-                    automobilID = model.Automobili.FirstOrDefault().automobilID,
-                    prikaz = m.nazivMarke + " - " + model.nazivModela
-                    }), "automobilID", "prikaz"))">>
-                 </select> *@
+                <div class="form-group">
+                    <label for="automobilID">Automobil</label>
+                    <select asp-for="automobilID" class="form-control" asp-items="Model.automobili">
+                    </select>
+                </div>
 
                 <label for="">Rezervacija od:</label>
                 <input type="date" asp-for="zakupljenOd">
                 <label for="">Rezervacija do:</label>
                 <input type="date"asp-for="zakupljenDo">
-                <button type="Submit">Potvrdi rezervaciju</button>
+                <button type="Submit">Izmeni rezervaciju</button>
             </div>
         </form>
     </div>

@@ -5,6 +5,7 @@ using lucars.Models;
 using lucars.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace lucars.Controllers;
 
@@ -78,5 +79,73 @@ public class BookingController : Controller
 
         return View(zakupi);
     }
-    
+
+    public IActionResult AdminBooking()
+    {
+        var zakupi = context.Zakups.Include(a => a.Automobil)
+            .ThenInclude(a => a.Model).ThenInclude(m => m.Markas).Include(k=>k.User).ToList();
+
+        return View(zakupi);        
+    }
+
+    public IActionResult Update(int id)
+    {
+        var z = context.Zakups.Include(z => z.Automobil).FirstOrDefault(z => z.zakupID == id);
+        if (z == null) return NotFound();
+
+        var viewModel = new ZakupEditViewModel
+        {
+            zakupID = z.zakupID,
+            automobilID = z.idAutomobil,
+            zakupljenOd = z.zakupljenOd,
+            zakupljenDo = z.zakupljenDo,
+            automobili = context.Automobils
+            .Include(a => a.Model).ThenInclude(a => a.Markas).
+            Include(a => a.Klasa).Select(a => new SelectListItem
+            {
+                Value = a.automobilID.ToString(),
+                Text = a.automobilID + " " + a.Model.Markas.nazivMarke + " " + a.Model.nazivModela + " " + a.godinaProizvodnje
+            }).ToList()
+        };
+
+        return View(viewModel);
+
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteZakup(int id)
+    {
+        var z = await context.Zakups.FindAsync(id);
+        if (z == null)
+        {
+            return NotFound();
+        }
+        context.Zakups.Remove(z);
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Booking", "Booking");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(ZakupEditViewModel z)
+    {
+        var zakup = context.Zakups.Find(z.zakupID);
+        if (zakup == null) return NotFound();
+        if (!ModelState.IsValid)
+        {
+            return View(zakup);
+        }
+
+
+        zakup.idAutomobil = z.automobilID;
+        zakup.zakupljenOd = DateTime.SpecifyKind(z.zakupljenOd,DateTimeKind.Utc);
+        zakup.zakupljenDo = DateTime.SpecifyKind(z.zakupljenDo,DateTimeKind.Utc);
+
+        context.SaveChanges();
+
+        return RedirectToAction("Booking", "Booking");
+
+    }
 }
