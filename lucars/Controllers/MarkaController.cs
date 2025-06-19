@@ -25,6 +25,7 @@ public class MarkaController : Controller
         return View(marke);
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult InsertMarka()
     {
         return View();
@@ -33,6 +34,7 @@ public class MarkaController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> InsertMarka(Marka marka)
     {
         if (!ModelState.IsValid)
@@ -45,6 +47,7 @@ public class MarkaController : Controller
         return RedirectToAction("Index");
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult UpdateMarka(int id)
     {
         var marka = context.Markas
@@ -58,6 +61,7 @@ public class MarkaController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> UpdateMarka(Marka marka)
     {
         if (!ModelState.IsValid)
@@ -80,6 +84,7 @@ public class MarkaController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> DeleteMarka(int id)
     {
         var m = await context.Markas.FindAsync(id);

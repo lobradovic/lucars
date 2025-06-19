@@ -6,6 +6,7 @@ using lucars.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lucars.Controllers;
 
@@ -38,6 +39,7 @@ public class BookingController : Controller
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Index(ZakupViewModel z)
     {
         if (!ModelState.IsValid)
@@ -70,6 +72,7 @@ public class BookingController : Controller
         return RedirectToAction("Booking", "Booking");
     }
 
+    [Authorize]
     public IActionResult Booking()
     {
         var korisnik = userManager.GetUserId(User);
@@ -80,14 +83,16 @@ public class BookingController : Controller
         return View(zakupi);
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult AdminBooking()
     {
         var zakupi = context.Zakups.Include(a => a.Automobil)
-            .ThenInclude(a => a.Model).ThenInclude(m => m.Markas).Include(k=>k.User).ToList();
+            .ThenInclude(a => a.Model).ThenInclude(m => m.Markas).Include(k => k.User).ToList();
 
-        return View(zakupi);        
+        return View(zakupi);
     }
 
+    [Authorize]
     public IActionResult Update(int id)
     {
         var z = context.Zakups.Include(z => z.Automobil).FirstOrDefault(z => z.zakupID == id);
@@ -114,6 +119,7 @@ public class BookingController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> DeleteZakup(int id)
     {
         var z = await context.Zakups.FindAsync(id);
@@ -129,6 +135,7 @@ public class BookingController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Update(ZakupEditViewModel z)
     {
         var zakup = context.Zakups.Find(z.zakupID);
@@ -140,8 +147,8 @@ public class BookingController : Controller
 
 
         zakup.idAutomobil = z.automobilID;
-        zakup.zakupljenOd = DateTime.SpecifyKind(z.zakupljenOd,DateTimeKind.Utc);
-        zakup.zakupljenDo = DateTime.SpecifyKind(z.zakupljenDo,DateTimeKind.Utc);
+        zakup.zakupljenOd = DateTime.SpecifyKind(z.zakupljenOd, DateTimeKind.Utc);
+        zakup.zakupljenDo = DateTime.SpecifyKind(z.zakupljenDo, DateTimeKind.Utc);
 
         context.SaveChanges();
 

@@ -19,6 +19,7 @@ public class ModelController : Controller
         this.context = context;
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult Index()
     {
         var modeli = context.Models.Include(m => m.Markas).ToList();
@@ -26,6 +27,7 @@ public class ModelController : Controller
         return View(modeli);
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult UpdateModel(int id)
     {
         var model = context.Models.Include(m => m.Markas)
@@ -44,6 +46,7 @@ public class ModelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> UpdateModel(ModelViewModel model)
     {
         if (!ModelState.IsValid)
@@ -65,6 +68,7 @@ public class ModelController : Controller
         return RedirectToAction("Index", "Model");
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult InsertModel()
     {
         var modeli = new ModelViewModel
@@ -79,6 +83,7 @@ public class ModelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> InsertModel(ModelViewModel model)
     {
         if (!ModelState.IsValid)
@@ -97,6 +102,7 @@ public class ModelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> DeleteModel(int id)
     {
         var m = await context.Models.FindAsync(id);

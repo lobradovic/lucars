@@ -47,12 +47,6 @@ public class AutomobiliApiController : Controller
     [HttpPost]
     public async Task<ActionResult<Automobil>> KreirajNovi([FromBody] Automobil input)
     {
-        // if (string.IsNullOrWhiteSpace(input.Model.))
-        // {
-        //     ModelState.AddModelError("Name", "Naziv kategorije je obaveyan.");
-        //     return BadRequest(ModelState);
-        // }
-
         var novi = new Automobil
         {
             godinaProizvodnje = input.godinaProizvodnje,

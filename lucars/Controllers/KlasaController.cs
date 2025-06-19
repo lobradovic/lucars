@@ -19,12 +19,14 @@ public class KlasaController : Controller
         this.context = context;
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult Index()
     {
         var klase = context.Klasas.ToList();
         return View(klase);
     }
 
+    [Authorize(Roles ="Admin")]
     public IActionResult InsertKlasa()
     {
         return View();
@@ -32,6 +34,7 @@ public class KlasaController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> InsertKlasa(Klasa k)
     {
         if (!ModelState.IsValid)
@@ -47,7 +50,8 @@ public class KlasaController : Controller
 
         return RedirectToAction("Index", "Klasa");
     }
-
+    
+    [Authorize(Roles = "Admin")]
     public IActionResult UpdateKlasa(int id)
     {
         var klasa = context.Klasas.Where(k => k.klasaID == id).FirstOrDefault();
@@ -61,6 +65,7 @@ public class KlasaController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> UpdateKlasa(Klasa klasa)
     {
         if (!ModelState.IsValid)
@@ -83,6 +88,7 @@ public class KlasaController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> DeleteKlasa(int id)
     {
         var klasa = context.Klasas.Find(id);

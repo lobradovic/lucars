@@ -5,6 +5,7 @@ using lucars.Models;
 using lucars.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Strong_eCourses.Controllers;
 public class AutomobilController : Controller
@@ -14,6 +15,8 @@ public class AutomobilController : Controller
     {
         this.context = context;
     }
+
+    [Authorize(Roles="Admin")]
     public IActionResult Index()
     {
         return View();
