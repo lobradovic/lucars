@@ -1,4 +1,21 @@
+using lucars.Controllers;
+using lucars.Models;
+using lucars.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString=builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(connectionString));
+
+builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
+options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -16,6 +33,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -26,4 +44,17 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 
+using (var scope = app.Services.CreateScope())
+{
+    await DbSeeder.SeedRolesAsync(scope.ServiceProvider);
+
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+
+    await DbSeeder.SeedMarkasAsync(context);
+    await DbSeeder.SeedKlasasAsync(context);
+    await DbSeeder.SeedModelsAsync(context);
+    await DbSeeder.SeedAutomobilsAsync(context);
+
+}
 app.Run();

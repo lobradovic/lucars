@@ -1,0 +1,31 @@
+@{ViewData["Title"]="Pregled klasa";}
+@model List<Klasa>
+
+
+<h1>Sve klase</h1>
+<div class="navigation"><a asp-controller="Admin" asp-action="Index" class="abtn"> Nazad</a></div>
+
+<a asp-controller="Klasa" asp-action="InsertKlasa" class="abtn">Unos nove klase</a>
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Naziv</th>
+        <th colspan="2">Opcije</th>
+    </thead>
+    <tbody>
+        @foreach(var k in Model)
+        {
+            <tr>
+                <td>@k.klasaID</td>
+                <td>@k.nazivKlase</td>
+                <td><a asp-controller="Klasa" asp-action="UpdateKlasa" asp-route-id="@k.klasaID">Update</a></td>
+                <td>
+                    <form asp-controller="Klasa" asp-action="DeleteKlasa" method="POST" asp-route-id="@k.klasaID">
+                        <input type="hidden" asp-for="@k.klasaID">
+                        <button class="abtn"> Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "LUCARS - Booking";
+}
+@model List<Zakup>
+
+<h1>Moje rezervacije</h1>
+<div class="navigation"><a asp-controller="Home" asp-action="Index" class="abtn"> Nazad</a></div>
+
+<div class="content">
+
+@if(Model.Any())
+{
+    <table class="bookings">
+    <thead>
+        <th>Automobil</th>
+        <th>Zakupljen od</th>
+        <th>Zakupljen do</th>
+        <th colspan="2">Opcije </th>
+    </thead>
+    <tbody>
+    @foreach(Zakup z in Model)
+    {
+        <tr>
+            <td>@z.Automobil.Model.Markas.nazivMarke @z.Automobil.Model.nazivModela</td>
+            <td>@z.zakupljenOd.ToShortDateString()</td>
+            <td>@z.zakupljenDo.ToShortDateString()</td>
+            <td>                
+                <div class="formField submitBtn">
+                    <a asp-action="Update" asp-controller="Booking" asp-route-id="@z.zakupID" class="abtn">Update</a>
+                </div>     
+            </td>
+            <td>                
+                <div class="formField submitBtn">
+                    <form asp-controller="Booking" asp-action="DeleteZakup" asp-route-id="@z.zakupID" method="POST">
+                        <button type="submit" class="abtn">Obrisi</button>
+                    </form>
+                </div>     
+            </td>
+        </tr>
+    }
+    </tbody>
+    </table>
+}
+else
+{
+    <h3>Trenutno nemate nijednu rezervaciju.</h3>
+}
+    
+</div>

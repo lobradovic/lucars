@@ -1,8 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "LUCARS - Homepage";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model AutoPageModel
+<div>
+    <div class="searchDiv">
+            <form method="GET">
+                <div class="formField"><input type="text" name="searchQuery" value="@Model.searchQuery" placeholder="Pretraži automobile" /></div>
+                <div class="formField">
+                    <select name="sort" asp-items="@ViewBag.Sort"></select>
+                </div>
+                <div class="formField submitBtn"><button type="submit" class="abtn">Filtriraj</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="automobili">
+        @foreach(var automobil in Model.automobili)
+        {
+            
+            <div class="automobil">
+            <a asp-controller="Booking" asp-action="Index" asp-route-id="@automobil.automobilID">
+            <h2>@automobil.Model.Markas.nazivMarke @automobil.Model.nazivModela</h2>
+            <p>@automobil.godinaProizvodnje</p>
+            <p>@automobil.Klasa.nazivKlase</p>
+            <p>@automobil.cena EUR</p>
+            </a>
+            </div>
+            
+        }
+    </div>
+    <div class="pagination">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchQuery="@Model.searchQuery"
+            class="@(i == Model.CurrentPage ? "active" : "")">
+                @i
+            </a>
+        }
+</div>
 </div>

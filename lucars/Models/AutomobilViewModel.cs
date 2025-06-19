@@ -1,0 +1,20 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+namespace lucars.Models;
+
+public class AutomobilViewModel
+{
+    public int automobilID { get; set; }
+
+    [ValidateNever]
+    public Automobil automobil { get; set; }
+
+    [Required]
+    [DataType(DataType.Date)]
+    public DateTime zakupljenOd { get; set; } = DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc);
+
+    [Required]
+    [DataType(DataType.Date)]
+    public DateTime zakupljenDo { get; set; } = DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc);
+}

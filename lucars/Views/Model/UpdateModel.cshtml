@@ -1,0 +1,24 @@
+@{ViewData["Title"]="Update modela";}
+@model ModelViewModel
+
+<h1>Update modela</h1>
+<div class="navigation"><a asp-controller="Model" asp-action="Index" class="abtn"> Nazad</a></div>
+
+<div class="form">
+    <form method="POST" asp-controller="Model" asp-action="UpdateModel">
+        @Html.AntiForgeryToken()
+        <div class="formField">
+            <label for="">Marka</label>
+        <select asp-for="@Model.idMarka" asp-items="@(new SelectList(Model.Marke, "markaID", "nazivMarke"))"></select>
+            </select>
+        </div>
+        <div class="formField">
+            <label for="">Model</label>
+            <input type="hidden" asp-for="@Model.modelID">
+            <input type="text" asp-for="@Model.nazivModela">
+        </div>
+        <div class="formField submitBtn">
+            <button>Potvrdi</button>
+        </div>
+    </form>
+</div>

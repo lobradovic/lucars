@@ -1,31 +1,408 @@
-html {
-  font-size: 14px;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+
+  /* background-color: #1c1c1c; */
+  color:#e4e4e4;
+  font-family:"Inter", sans-serif;
+  font-weight:300;
+  
+}
+body
+{
+  background-color: #1c1c1c;
+    display:block;
+
+}
+header
+{
+    background-color: #0c0c0c;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    display: block;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+a,nav a
+{
+  text-decoration: none;
+  color:#e4e4e4;
+  font-size:1.1em;
+}
+nav
+{
+  gap:2em;
+  color:#e4e4e4;
+}
+.headerDiv
+{
+  height:20vh;
+  display:flex;
+  justify-content: space-between;
+
+  padding:1em 2em;
+
+box-shadow: 0px -10px 29px 1px rgba(28,28,28,0.75) inset;
+-webkit-box-shadow: 0px -10px 29px 1px rgba(28,28,28,0.75) inset;
+-moz-box-shadow: 0px -10px 29px 1px rgba(28,28,28,0.75) inset;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.headerLogo
+{
+  width:30%;
+}
+.headerNav
+{
+  display:flex;
+  align-items: center;
+}
+.headerNav nav
+{
+  display:flex;
+  gap:.5em
+}
+.headerNav nav a
+{
+  color:#e4e4e4;
+  padding:.5em .75em;
+  border-bottom:1px solid #e4e4e4;
+  width:110px;
+  text-align:center;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.headerNav nav a:hover
+{
+  color:gold;
+  border-bottom:1px solid gold;
+
+  transition:all 0.3s ease;
+  background-color: #393939;
+}
+.foot
+{
+  display:flex;
+  justify-content: space-between;
+  background-color: #0c0c0c;
+  color:#f5f5f5;
+  font-weight:300;
+box-shadow: 0px 6px 29px -5px rgba(28,28,28,0.75) inset;
+-webkit-box-shadow: 0px 6px 29px -5px rgba(28,28,28,0.75) inset;
+-moz-box-shadow: 0px 6px 29px -5px rgba(28,28,28,0.75) inset;
+}
+.footCol
+{
+  background-color: #0c0c0c;
+box-shadow: 0px 6px 29px -5px rgba(28,28,28,0.75) inset;
+-webkit-box-shadow: 0px 6px 29px -5px rgba(28,28,28,0.75) inset;
+-moz-box-shadow: 0px 6px 29px -5px rgba(28,28,28,0.75) inset;
+}
+.footCol a,.footCol p,.footCol img
+{
+  font-weight:300;
+  background-color: #0c0c0c;
+  color:#e4e4e4;
+}
+.footCol h3
+{
+    background-color: #0c0c0c;
+}
+.footCol
+{
+  width:33%;
+  padding:2em;
+  display:flex;
+  flex-direction:column
+}
+.footCol a
+{
+  color:#f5f5f5;
+}
+.footCol img
+{
+  height:200px;
+}
+.footCol p:hover, .footCol a:hover
+{
+  padding-left:.2em;
+  color:#fff
+}
+.foot .footCol a
+{
+  color:#e4e4e4
 }
 
-body {
-  margin-bottom: 60px;
+.container
+{
+  background-color:#1c1c1c;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.automobili
+{
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap:1em;
+}
+.automobil
+{
+  padding:1em .5em;
+  border:1px solid #f5f5f5;
+  gap:1em;
+  width:30%;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.automobil:hover,.automobil:hover a,.automobil:hover h2,.automobil:hover
+{
+  background-color: #f5f5f5;
+  color:#1c1c1c;
+
+  transition:all 0.3s ease;
+}
+
+.reg
+{
+  display:flex;
+  max-width:80%;
+  margin:0 auto;
+  justify-content: space-between;
+}
+
+.reg .loginDiv
+{
+  width:30%;
+}
+.formField{
+  display:flex;
+  flex-direction:column
+}
+.hero-content
+{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  width:50%;
+}
+.regLogo
+{
+  display:flex;
+  justify-content: center;
+}
+.regLogo img
+{
+  width:60%;
+}
+
+input
+{
+  background-color: #1c1c1c;
+  border:none;
+  border-bottom:1px solid #e4e4e4;
+  margin-bottom:2em;
+  color:#e4e4e4
+}
+.form
+{
+  margin-top:2em
+}
+.form button
+{
+  background-color: #1c1c1c;
+  border:1px solid #e4e4e4;
+  color:#e4e4e4;
+  padding:.75em 0;
+  margin-bottom:.5em
+}
+
+.formNote
+{
+  text-align: center;
+  font-size:13px
+}
+.formNote a
+{
+  font-size:13px;
+  text-decoration: underline;
+}
+
+.form button:hover,.formNote a:hover
+{
+  color:#1c1c1c;
+  background-color: #f5f5f5;
+
+  transition:all 0.3s ease
+}
+.login
+{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginDiv
+{
+  max-width: 30%;
+  padding:1em 2em;
+  border:1px solid #e4e4e4;
+  margin-top:2em
+}
+.loginDiv .logo
+{
+  display:flex;
+  justify-content: center;
+}
+.loginDiv .logo img
+{
+  width:60%;
+}
+
+.content-flex{
+  display:flex;
+  justify-content: space-evenly;
+  padding:5em 0
+}
+
+.bookInfo, .bookInfo .form
+{
+  display:flex;
+  flex-direction: column;
+}
+
+.bookings
+{
+  width:80%;
+  margin-top:2em;
+  margin-bottom:3em
+}
+thead
+{
+  font-weight:500;
+  font-size:15px;
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom:2em;
+}
+thead tr,tr
+{
+    margin-bottom:2em;
+    height:3em
+}
+thead th
+{
+  font-weight:500;
+  font-size:15px;
+  margin-bottom:2em;
+}
+.content
+{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminDiv
+{
+  width:80%;
+  justify-content: center;
+  margin-top:3em;
+  margin-bottom:3em;
+}
+.dashboard
+{
+  width:60%;
+  display:flex;
+  flex-direction: column;
+  margin-right: 5em;
+}
+
+.abtn
+{
+  background-color: #1c1c1c;
+  border:1px solid #e4e4e4;
+  color:#e4e4e4;
+  padding:.75em 1em;
+  margin-bottom:.5em;
+  min-width:150px;
+}
+
+.abtn:hover
+{
+  background-color: #e4e4e4;
+  border:1px solid #e4e4e4;
+  color:#1c1c1c;
+  padding:.75em 0;
+  margin-bottom:.5em;
+
+  transition: all 0.3s ease
+}
+.container
+{
+  margin:0 auto;
+}
+
+.formField select
+{
+  background-color:#1c1c1c;
+  border:none;
+  border-bottom:1px solid #e4e4e4;
+}
+
+.navigation
+{
+  display:flex;
+  justify-content: flex-end;
+}
+
+.frmFix .form
+{
+  max-width: 40%;
+}
+
+.container .form .formField
+{
+  height:5em;
+}
+#lista
+{
+  width:70%;
+}
+
+.carInfo
+{
+  width:40%;
+}
+
+.searchDiv
+{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items:end;
+  margin-bottom:1em
+}
+.pagination
+{
+  margin:1em 0;
+  display:flex;
+  justify-content: center;
+  gap:1.5em;
+
+}
+.pagination a
+{
+    padding:.5em
+}
+.pagination .active
+{
+ border:1px solid #e4e4e4;
+ color:#e4e4e4
+}
+
+a:not(.active):hover
+{
+  background-color: #e4e4e4;
+  color:#1c1c1c;
+
+  transition:all 0.3s ease
 }

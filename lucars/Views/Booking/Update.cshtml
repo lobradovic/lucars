@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "LUCARS - Booking update";
+}
+@model ZakupEditViewModel
+
+<div class="navigation"><a asp-controller="Home" asp-action="Index" class="abtn"> Nazad</a></div>
+
+<h1>Detalji o zakupu: </h1>
+<div class="content-flex">
+    <div class="bookInfo">
+        <form asp-controller="Booking" asp-action="Update" method="POST">
+            @if (ViewBag.Message != null)
+            {
+                <div class="text-danger">@ViewBag.Message</div>
+            }
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form">
+                <input type="hidden" asp-for="zakupID" />
+
+                <div class="form-group">
+                    <label for="automobilID">Automobil</label>
+                    <select asp-for="automobilID" class="form-control" asp-items="Model.automobili">
+                    </select>
+                </div>
+
+                <label for="">Rezervacija od:</label>
+                <input type="date" asp-for="zakupljenOd">
+                <label for="">Rezervacija do:</label>
+                <input type="date"asp-for="zakupljenDo">
+                <button type="Submit">Izmeni rezervaciju</button>
+            </div>
+        </form>
+    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div style="color:red;">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+

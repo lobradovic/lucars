@@ -1,0 +1,151 @@
+@{ViewData["Title"]="Automobili";}
+
+<h3>Dodaj novi automobil</h3>
+<div class="navigation"><a asp-controller="Admin" asp-action="Index" class="abtn">Nazad</a></div>
+
+<div class="frmFix d-flex md-3 mu-3 justify-content-between">
+
+<div class="form">
+    <form id="forma-automobil">
+        <div class="formField">
+            <label>Automobil</label><br />
+            <select id="modelSelect"></select><br /><br />
+        </div>
+        <div class="formField">
+            <label>Klasa</label><br />
+            <select id="klasaSelect"></select><br /><br />
+        </div>
+        <div class="formField">
+            <label>Godina proizvodnje</label><br />
+            <input type="number" id="godinaInput"><br /><br />
+        </div>
+        <div class="formField">
+            <label>Registrovan do</label><br />
+            <input type="date" id="regDoInput"><br /><br />
+        </div>
+        <div class="formField">
+            <label>Cena (€)</label><br />
+            <input type="number" id="cenaInput"><br /><br />
+        </div>
+        <button type="submit" class="abtn">Dodaj</button>
+    </form>
+</div>
+
+
+<div id="lista">
+    <h3>Lista automobila</h3>
+    <table id="tabela" class="bookings">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Marka</th>
+                <th>Model</th>
+                <th>Klasa</th>
+                <th>Registrovan do</th>
+                <th>Cena</th>
+                <th>Opcije</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+</div>
+<!-- REFERENCA NA jQuery mada ima je u layoutu al bolje i ovde -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            function ucitajSve() {
+                $.ajax({
+                    url: '/api/Automobil',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#tabela tbody').empty();
+
+
+                        data.forEach(function (auto) {
+                            var red = '<tr data-id="' + auto.automobilID + '">' +
+                                '<td>' + auto.automobilID + '</td>' +
+                                '<td>' + auto.model.markas.nazivMarke + '</td>' +
+                                '<td>' + auto.model.nazivModela + '</td>' +
+                                '<td>' + auto.klasa.nazivKlase + '</td>' +
+                                '<td>' + (auto.registrovanDo ? auto.registrovanDo.split('T')[0] : '') + '</td>' +
+                                '<td>' + auto.cena + ' €</td>' +
+                                '<td><button class="abtn">Obrisi</button></td>' +
+                                '</tr>';
+                            $('#tabela tbody').append(red);
+                        });
+                    },
+                    error: function (xhr) {
+                        console.error('Greška pri GET /api/Automobil:', xhr.responseText);
+                    }
+                });
+            }
+
+            ucitajSve();
+        });
+        $(function () {
+        $.get('/api/Automobil/modeli', function (data) {
+            data.forEach(function (m) {
+                $('#modelSelect').append('<option value="' + m.id + '">' + m.naziv + '</option>');
+            });
+        });
+        $.get('/api/Automobil/klase', function (data) {
+            data.forEach(function (k) {
+                $('#klasaSelect').append('<option value="' + k.id + '">' + k.naziv + '</option>');
+            });
+        });
+
+        $('#forma-automobil').submit(function (e) {
+            e.preventDefault();
+
+            var auto = {
+                idModel: parseInt($('#modelSelect').val()),
+                idKlasa: parseInt($('#klasaSelect').val()),
+                godinaProizvodnje: parseInt($('#godinaInput').val()),
+                registrovanDo: $('#regDoInput').val(),
+                cena: parseFloat($('#cenaInput').val())
+            };
+
+            $.ajax({
+                url: '/api/Automobil',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(auto),
+                success: function (odgovor) {
+                    alert('Uspešno dodat automobil sa ID: ' + odgovor.automobilID);
+                    $('#forma-automobil')[0].reset();
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                    alert('Greška prilikom unosa.');
+                }
+            });
+        });
+    });
+
+    $('#tabela').on('click', '.abtn', function () {
+                var red = $(this).closest('tr');
+                var id = red.data('id');
+
+                if (!confirm('Da li ste sigurni da zelite da obrisete kategoriju')){
+                    return;
+                }
+
+                $.ajax({
+                    url: '/api/Automobil/' + id,
+                    method: 'DELETE',
+                    success: function () {
+                        ucitajSve();
+                    },
+                    error: function (xhr) {
+                        var poruka = xhr.responseText || 'Doslo je do greskee.';
+                        alert('Greska pri vrisanju: ' + poruka);
+                    }
+                });
+            });
+    </script>
+}
