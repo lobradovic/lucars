@@ -2,7 +2,9 @@
 @model List<Model>
 
 <h1>Svi modeli</h1>
-<a asp-controller="Model" asp-action="InsertModel">Unos novog modela</a>
+<div class="navigation"><a asp-controller="Admin" asp-action="Index" class="abtn"> Nazad</a></div>
+
+<a asp-controller="Model" asp-action="InsertModel" class="abtn">Unos novog modela</a>
 <table id="klijentska">
     <thead>
         <tr>

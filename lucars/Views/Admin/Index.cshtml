@@ -2,16 +2,18 @@
     ViewData["Title"] = "Admin panel";
 }
 
-<h1>Admin stranica</h1>
-
+<div class="container">
+    <h1>Admin stranica</h1>
+<div class="navigation">
+    <a asp-controller="Home" asp-action="Index" class="abtn">Početna</a>
+</div>
 <div class="d-flex adminDiv">
     <div class="dashboard">
         <a asp-controller="Marka" asp-action="Index" class="abtn">Marke</a>
         <a asp-controller="Model" asp-action="Index" class="abtn">Modeli</a>
         <a asp-controller="Klasa" asp-action="Index" class=abtn>Klase</a>
-        <a href="" class="abtn">Automobili</a>
-        <a href="" class="abtn"> Svi zakupi</a>
-        <a href="" class="abtn">Svi korisnici</a>
+        <a asp-controller="Automobil" asp-action="Index" class="abtn">Automobili</a>
+        <a asp-controller="Booking" asp-action="AdminBooking" class="abtn"> Svi zakupi</a>
     </div>
     <div class="adminInfo">
         <h2>Dobrodošli u administratorski panel</h2>
@@ -33,4 +35,5 @@
             Odaberite željenu stavku iz menija kako biste započeli rad.
         </p>
     </div>
+</div>
 </div>

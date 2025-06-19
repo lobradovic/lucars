@@ -4,6 +4,8 @@
 @model List<Zakup>
 
 <h1>Moje rezervacije</h1>
+<div class="navigation"><a asp-controller="Home" asp-action="Index" class="abtn"> Nazad</a></div>
+
 <div class="content">
 
 @if(Model.Any())
@@ -24,7 +26,7 @@
             <td>@z.zakupljenDo.ToShortDateString()</td>
             <td>                
                 <div class="formField submitBtn">
-                    <a asp-action="Update" asp-controller="Booking" asp-route-id="@z.zakupID">Update</a>
+                    <a asp-action="Update" asp-controller="Booking" asp-route-id="@z.zakupID" class="abtn">Update</a>
                 </div>     
             </td>
             <td>                

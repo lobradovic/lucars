@@ -3,24 +3,16 @@
 }
 @model AutoPageModel
 <div>
-<div class="searchDiv">
-        <form method="GET">
-            <input type="text" name="searchQuery" value="@Model.searchQuery" placeholder="Pretraži automobile" />
-        @* 
-            <select name="selectedCategory" class="form-select">
-                <option value="">Sve kategorije</option>
-                @foreach (var category in Model.Categories)
-                {
-                    <option value="@category" selected="@(category == Model.SelectedCategory ? "selected" : null)">@category</option>
-                }
-            </select> *@
-            <select name="sort" asp-items="@ViewBag.Sort">
-            </select>
-
-            <button type="submit">Filtriraj</button>
-        </form>
+    <div class="searchDiv">
+            <form method="GET">
+                <div class="formField"><input type="text" name="searchQuery" value="@Model.searchQuery" placeholder="Pretraži automobile" /></div>
+                <div class="formField">
+                    <select name="sort" asp-items="@ViewBag.Sort"></select>
+                </div>
+                <div class="formField submitBtn"><button type="submit" class="abtn">Filtriraj</button></div>
+            </form>
+        </div>
     </div>
-</div>
     <div class="automobili">
         @foreach(var automobil in Model.automobili)
         {
@@ -36,13 +28,13 @@
             
         }
     </div>
-    <div class="pagination"></div>
-    @for (int i = 1; i <= Model.TotalPages; i++)
-    {
-        <a asp-action="Index" asp-route-page="@i" asp-route-searchQuery="@Model.searchQuery"
-           class="@(i == Model.CurrentPage ? "active" : "")">
-            @i
-        </a>
-    }
+    <div class="pagination">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchQuery="@Model.searchQuery"
+            class="@(i == Model.CurrentPage ? "active" : "")">
+                @i
+            </a>
+        }
 </div>
 </div>

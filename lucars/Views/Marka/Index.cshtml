@@ -4,8 +4,9 @@
 @model List<Marka>
 
 <h1>Prikaz svih marki</h1>
+<div class="navigation"><a asp-controller="Admin" asp-action="Index" class="abtn"> Nazad</a></div>
 
-<a asp-controller="Marka" asp-action="InsertMarka">Unos nove marke</a>
+<a asp-controller="Marka" asp-action="InsertMarka" class="abtn">Unos nove marke</a>
 <table id="klijentska">
     <thead>
         <tr>

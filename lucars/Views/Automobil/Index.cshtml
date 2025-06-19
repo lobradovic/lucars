@@ -1,6 +1,10 @@
 @{ViewData["Title"]="Automobili";}
 
 <h3>Dodaj novi automobil</h3>
+<div class="navigation"><a asp-controller="Admin" asp-action="Index" class="abtn">Nazad</a></div>
+
+<div class="frmFix d-flex md-3 mu-3 justify-content-between">
+
 <div class="form">
     <form id="forma-automobil">
         <div class="formField">
@@ -30,7 +34,7 @@
 
 <div id="lista">
     <h3>Lista automobila</h3>
-    <table id="tabela" border="1" cellpadding="5">
+    <table id="tabela" class="bookings">
         <thead>
             <tr>
                 <th>ID</th>
@@ -47,6 +51,7 @@
     </table>
 </div>
 
+</div>
 <!-- REFERENCA NA jQuery mada ima je u layoutu al bolje i ovde -->
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

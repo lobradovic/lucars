@@ -2,6 +2,8 @@
 @model ModelViewModel
 
 <h1>Novi model</h1>
+<div class="navigation"><a asp-controller="Model" asp-action="Index" class="abtn"> Nazad</a></div>
+
 <div class="form">
     <form asp-controller="Model" asp-action="InsertModel" method="POST">
         @Html.AntiForgeryToken

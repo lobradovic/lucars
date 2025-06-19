@@ -2,6 +2,8 @@
 @model ModelViewModel
 
 <h1>Update modela</h1>
+<div class="navigation"><a asp-controller="Model" asp-action="Index" class="abtn"> Nazad</a></div>
+
 <div class="form">
     <form method="POST" asp-controller="Model" asp-action="UpdateModel">
         @Html.AntiForgeryToken()
